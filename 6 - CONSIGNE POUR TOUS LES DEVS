@@ -1,0 +1,11 @@
+DEV AIRFLOW
+    Sur le task de run dbt , vous declencher juste la transformation dbt -> en parler avec DEV DBT
+
+DEV DBT
+    Vous elaborez le script sql finale ou les autres devs puissent travaillez -> travaillez plus vite
+
+DEV BACKEND ET FRONTEND
+    Vous utiliser le script analytics venant de DEV DBT -> veuillez lui en parler
+
+DEV POWER BI
+    Vous utiliser le script analytics venant de DEV DBT -> veuillez lui en parlera
