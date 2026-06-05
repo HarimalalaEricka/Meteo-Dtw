@@ -1,0 +1,52 @@
+# Configuration API météo
+api:
+  base_url: "https://api.open-meteo.com/v1/forecast"
+  timeout: 30
+  retry_count: 3
+
+# Villes à surveiller
+cities:
+  - name: "Antananarivo"
+    latitude: -18.9137
+    longitude: 47.5361
+  - name: "Mahajanga"
+    latitude: -15.7162
+    longitude: 46.3190
+  - name: "Toamasina"
+    latitude: -18.1492
+    longitude: 49.4023
+  - name: "Fianarantsoa"
+    latitude: -21.4545
+    longitude: 47.0868
+  - name: "Toliara"
+    latitude: -23.3568
+    longitude: 43.6667
+
+# Base de données PostgreSQL
+database:
+  host: "localhost"
+  port: 5432
+  name: "weather_db"
+  user: "airflow"
+  password: "airflow"
+  schema: "public"
+
+# Paramètres météo à récupérer
+weather_params:
+  hourly:
+    - "temperature_2m"
+    - "relativehumidity_2m"
+    - "windspeed_10m"
+    - "precipitation"
+    - "weathercode"
+
+# Seuils alertes
+alerts:
+  heat_threshold: 35      # °C - canicule
+  cold_threshold: 10      # °C - froid
+  rain_threshold: 20      # mm - pluie forte
+
+# dbt
+dbt:
+  project_dir: "/opt/airflow/dbt_project"
+  profiles_dir: "/opt/airflow/dbt_project"
