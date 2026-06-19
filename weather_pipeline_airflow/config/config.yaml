@@ -27,8 +27,8 @@ database:
   host: "localhost"
   port: 5432
   name: "weather_db"
-  user: "airflow"
-  password: "airflow"
+  user: "airflow"            # 🔧 Vérifie que cet user existe
+  password: "airflow"        # 🔧 Vérifie le mot de passe
   schema: "public"
 
 # Paramètres météo à récupérer
@@ -42,11 +42,11 @@ weather_params:
 
 # Seuils alertes
 alerts:
-  heat_threshold: 35      # °C - canicule
-  cold_threshold: 10      # °C - froid
-  rain_threshold: 20      # mm - pluie forte
+  heat_threshold: 35
+  cold_threshold: 10
+  rain_threshold: 20
 
-# dbt
+# 🔧 DBT — Chemin Windows (TES vrais chemins)
 dbt:
-  project_dir: "/opt/airflow/dbt_project"
-  profiles_dir: "/opt/airflow/dbt_project"
+  project_dir: "E:\\GitHub\\Meteo-Dtw\\weather_dbt"
+  profiles_dir: "E:\\GitHub\\Meteo-Dtw\\weather_dbt"
