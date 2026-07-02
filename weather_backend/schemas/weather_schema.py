@@ -2,18 +2,19 @@
 weather_schema.py
 Schémas Pydantic pour la validation et sérialisation des réponses
 """
+
 from pydantic import BaseModel
-from datetime import date, datetime
+from datetime import date
 from typing import Optional
 
 
 class CityOut(BaseModel):
-    city: str
+    city_name: str
 
 
 class WeatherTodayOut(BaseModel):
     city: str
-    observation_date: date
+    date_key: date
     temperature_c: Optional[float] = None
     humidity_pct: Optional[float] = None
     wind_speed_kph: Optional[float] = None
@@ -32,6 +33,7 @@ class WeatherHistoryOut(BaseModel):
 class TrendOut(BaseModel):
     city: str
     date_key: date
+    avg_temperature_c: Optional[float] = None
     avg_temp_7d: Optional[float] = None
     avg_temp_30d: Optional[float] = None
     total_precip_7d: Optional[float] = None
@@ -52,5 +54,7 @@ class AlertOut(BaseModel):
     alert_date: date
     alert_type: str
     severity: Optional[str] = None
-    value: Optional[float] = None
-    threshold: Optional[float] = None
+    max_temperature_c: Optional[float] = None
+    min_temperature_c: Optional[float] = None
+    total_precipitation_mm: Optional[float] = None
+    is_alert: Optional[bool] = None
