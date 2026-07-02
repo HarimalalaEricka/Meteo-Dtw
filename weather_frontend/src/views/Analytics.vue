@@ -34,26 +34,26 @@
       <h2>📉 Graphiques</h2>
       <div class="charts-grid">
         <TemperatureChart
-          title="🌡️ Température"
-          :history="history"
-          dataKey="temperature"
-          color="#64ffda"
-          unit="°C"
-        />
-        <TemperatureChart
-          title="💧 Humidité"
-          :history="history"
-          dataKey="humidity"
-          color="#ffc107"
-          unit="%"
-        />
-        <TemperatureChart
-          title="💨 Vent"
-          :history="history"
-          dataKey="wind_speed"
-          color="#ff5252"
-          unit="km/h"
-        />
+            title="🌡️ Température"
+            :history="history"
+            dataKey="avg_temperature_c"
+            color="#64ffda"
+            unit="°C"
+            />
+            <TemperatureChart
+            title="💧 Humidité"
+            :history="history"
+            dataKey="avg_humidity_pct"
+            color="#ffc107"
+            unit="%"
+            />
+            <TemperatureChart
+            title="💨 Vent"
+            :history="history"
+            dataKey="avg_wind_speed_kph"
+            color="#ff5252"
+            unit="km/h"
+            />
       </div>
     </section>
 
@@ -82,9 +82,10 @@ export default {
   computed: {
     kpi() {
       if (!this.history.length) return {}
-      const temps = this.history.map(h => h.temperature).filter(v => v != null)
-      const humid = this.history.map(h => h.humidity).filter(v => v != null)
-      const winds = this.history.map(h => h.wind_speed).filter(v => v != null)
+      const temps = this.history.map(h => h.avg_temperature_c).filter(v => v != null)
+      console.log('Temps:', temps)
+      const humid = this.history.map(h => h.avg_humidity_pct).filter(v => v != null)
+      const winds = this.history.map(h => h.avg_wind_speed_kph).filter(v => v != null)
       return {
         avgTemp:     temps.length ? (temps.reduce((a, b) => a + b, 0) / temps.length)  : null,
         maxTemp:     temps.length ? Math.max(...temps) : null,

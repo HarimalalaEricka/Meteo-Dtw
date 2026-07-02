@@ -71,16 +71,16 @@ export default {
     }
   },
   computed: {
-    temps()       { return this.todayWeather.map(w => w.temperature).filter(t => t != null) },
+    temps()       { return this.todayWeather.map(w => w.temperature_c).filter(t => t != null) },
     avgTemp()     { return this.temps.length ? (this.temps.reduce((a, b) => a + b, 0) / this.temps.length) : null },
     maxTemp()     { return this.temps.length ? Math.max(...this.temps) : null },
     minTemp()     { return this.temps.length ? Math.min(...this.temps) : null },
     avgHumidity() {
-      const h = this.todayWeather.map(w => w.humidity).filter(v => v != null)
+      const h = this.todayWeather.map(w => w.humidity_pct).filter(v => v != null)
       return h.length ? (h.reduce((a, b) => a + b, 0) / h.length) : null
     },
     avgWind() {
-      const w = this.todayWeather.map(x => x.wind_speed).filter(v => v != null)
+      const w = this.todayWeather.map(x => x.wind_speed_kph).filter(v => v != null)
       return w.length ? (w.reduce((a, b) => a + b, 0) / w.length) : null
     },
     cityCount() {

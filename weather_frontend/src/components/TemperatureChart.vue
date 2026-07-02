@@ -37,34 +37,42 @@ export default {
   },
   computed: {
     chartData() {
-      if (!this.history.length) return null
+        if (!this.history.length) return null
 
-      const sorted = [...this.history].sort(
-        (a, b) => new Date(a.recorded_at) - new Date(b.recorded_at)
-      )
+        const sorted = [...this.history].sort((a, b) => {
+            const dateA = a.recorded_at || a.date_key
+            const dateB = b.recorded_at || b.date_key
+            return new Date(dateA) - new Date(dateB)
+        })
 
-      return {
-        labels: sorted.map(d =>
-          new Date(d.recorded_at).toLocaleDateString('fr-FR', {
-            day: '2-digit',
-            month: 'short'
-          })
-        ),
-        datasets: [
-          {
-            label: `${this.title} (${this.unit})`,
-            data: sorted.map(d => d[this.dataKey]),
-            borderColor: this.color,
-            backgroundColor: this.color + '20',
-            borderWidth: 2,
-            pointRadius: 3,
-            pointBackgroundColor: this.color,
-            tension: 0.4,
-            fill: true
-          }
-        ]
-      }
-    },
+        return {
+            labels: sorted.map(d => {
+            const dateStr = d.recorded_at || d.date_key
+            if (!dateStr) return 'N/A'
+            
+            const [year, month, day] = dateStr.split('-')
+            const date = new Date(year, month - 1, day)
+            
+            return date.toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: 'short'
+            })
+            }),
+            datasets: [
+            {
+                label: `${this.title} (${this.unit})`,
+                data: sorted.map(d => d[this.dataKey]),
+                borderColor: this.color,
+                backgroundColor: this.color + '20',
+                borderWidth: 2,
+                pointRadius: 3,
+                pointBackgroundColor: this.color,
+                tension: 0.4,
+                fill: true
+            }
+            ]
+        }
+        },
     chartOptions() {
       return {
         responsive: true,

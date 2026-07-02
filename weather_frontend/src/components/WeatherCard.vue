@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
       <div class="temp-main">
-        <span class="temp-value">{{ data.temperature ?? '--' }}</span>
+        <span class="temp-value">{{ formatTemp(data.temperature_c) }}</span>
         <span class="temp-unit">°C</span>
       </div>
       <p class="description">{{ data.description || 'N/A' }}</p>
@@ -14,12 +14,12 @@
         <div class="detail">
           <span class="detail-icon">💧</span>
           <span class="detail-label">Humidité</span>
-          <span class="detail-value">{{ data.humidity ?? '--' }}%</span>
+          <span class="detail-value">{{ formatTemp(data.humidity_pct) }}%</span>
         </div>
         <div class="detail">
           <span class="detail-icon">💨</span>
           <span class="detail-label">Vent</span>
-          <span class="detail-value">{{ data.wind_speed ?? '--' }} km/h</span>
+          <span class="detail-value">{{ formatTemp(data.wind_speed_kph) }} km/h</span>
         </div>
       </div>
     </div>
@@ -54,6 +54,9 @@ export default {
         day: '2-digit', month: 'short',
         hour: '2-digit', minute: '2-digit'
       })
+    },
+    formatTemp(value) {
+        return value != null ? Number(value).toFixed(2) : '--';
     }
   }
 }

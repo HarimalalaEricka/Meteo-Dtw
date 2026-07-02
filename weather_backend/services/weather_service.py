@@ -11,7 +11,7 @@ def get_all_cities() -> list[dict]:
 
 
 def is_valid_city(city: str) -> bool:
-    cities = [row["city"].lower() for row in get_all_cities()]
+    cities = [row["city_name"].lower() for row in get_all_cities()]
     return city.lower() in cities
 
 

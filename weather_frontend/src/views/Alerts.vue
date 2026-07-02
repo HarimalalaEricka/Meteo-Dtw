@@ -86,7 +86,7 @@ export default {
       try {
         const [alerts, summary] = await Promise.allSettled([
           getAlerts(this.filters.city),
-          getAlertsSummary()
+        //   getAlertsSummary()
         ])
         this.alerts  = alerts.status  === 'fulfilled' ? alerts.value  : []
         this.summary = summary.status === 'fulfilled' ? summary.value : null

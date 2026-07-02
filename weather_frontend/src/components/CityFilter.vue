@@ -4,8 +4,12 @@
       <label>🏙️ Ville</label>
       <select v-model="selectedCity" @change="emitFilters">
         <option value="">Toutes les villes</option>
-        <option v-for="c in cities" :key="c.city" :value="c.city">
-          {{ c.city }}
+        <option
+            v-for="c in cities"
+            :key="c.city_name"
+            :value="c.city_name"
+            >
+            {{ c.city_name }}
         </option>
       </select>
     </div>
@@ -63,6 +67,7 @@ export default {
   async mounted() {
     try {
       this.cities = await getCities()
+      console.log(this.cities)
     } catch (e) {
       console.error('Erreur chargement villes:', e)
     }
