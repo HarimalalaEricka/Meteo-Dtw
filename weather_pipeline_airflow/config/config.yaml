@@ -24,7 +24,7 @@ cities:
 
 # Base de données PostgreSQL
 database:
-  host: "localhost"
+  host: "postgres"
   port: 5432
   name: "weather_db"
   user: "airflow"            # 🔧 Vérifie que cet user existe

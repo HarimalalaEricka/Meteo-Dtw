@@ -20,4 +20,4 @@ select
   max({{ ref('stg_weather') }}.ingested_at) as last_updated
 from {{ ref('stg_weather') }}
 group by observation_date, city
-order by observation_date desc, city;
+order by observation_date desc, city

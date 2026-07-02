@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: weather
+    schema: public
     tables:
       - name: raw_weather
         description: "Raw weather data from Airflow extraction (open-meteo API)."

@@ -45,7 +45,7 @@ dag = DAG(
 # ============================================================
 # CHEMIN VERS LE DOSSIER DBT
 # ============================================================
-DBT_PROJECT_DIR = r"E:\GitHub\Meteo-Dtw\weather_dbt"
+DBT_PROJECT_DIR = "/opt/airflow/dbt_project"
 
 
 # ============================================================
@@ -79,16 +79,30 @@ task_validate = PythonOperator(
     dag             = dag,
 )
 
+# ============================================================
+# TASK 3.5 — DBT SEED (chargement des seeds CSV)
+# ============================================================
+task_dbt_seed = BashOperator(
+    task_id      = 'run_dbt_seed',
+    bash_command = f"""
+        cd "{DBT_PROJECT_DIR}" && \
+        dbt seed \
+            --profiles-dir "{DBT_PROJECT_DIR}" \
+            --project-dir  "{DBT_PROJECT_DIR}"
+    """,
+    trigger_rule = TriggerRule.ALL_SUCCESS,
+    dag          = dag,
+)
 
 # ============================================================
 # TASK 4 — DÉCLENCHEMENT DBT MODELS
 # ============================================================
 task_dbt_run = BashOperator(
     task_id      = 'run_dbt_models',
-    bash_command = rf"""
-        cd /d "{DBT_PROJECT_DIR}" && ^
-        dbt run ^
-            --profiles-dir "{DBT_PROJECT_DIR}" ^
+    bash_command = f"""
+        cd "{DBT_PROJECT_DIR}" && \
+        dbt run \
+            --profiles-dir "{DBT_PROJECT_DIR}" \
             --project-dir  "{DBT_PROJECT_DIR}"
     """,
     trigger_rule = TriggerRule.ALL_SUCCESS,
@@ -101,10 +115,10 @@ task_dbt_run = BashOperator(
 # ============================================================
 task_dbt_test = BashOperator(
     task_id      = 'run_dbt_tests',
-    bash_command = rf"""
-        cd /d "{DBT_PROJECT_DIR}" && ^
-        dbt test ^
-            --profiles-dir "{DBT_PROJECT_DIR}" ^
+    bash_command = f"""
+        cd "{DBT_PROJECT_DIR}" && \
+        dbt run \
+            --profiles-dir "{DBT_PROJECT_DIR}" \
             --project-dir  "{DBT_PROJECT_DIR}"
     """,
     trigger_rule = TriggerRule.ALL_SUCCESS,
@@ -148,4 +162,4 @@ task_notify = PythonOperator(
 # ============================================================
 # ORDRE D'EXÉCUTION
 # ============================================================
-task_extract >> task_load >> task_validate >> task_dbt_run >> task_dbt_test >> task_aggregations >> task_alerts >> task_notify
+task_extract >> task_load >> task_validate >> task_dbt_seed >> task_dbt_run >> task_dbt_test >> task_aggregations >> task_alerts >> task_notify

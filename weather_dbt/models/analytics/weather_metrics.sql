@@ -21,6 +21,7 @@ rolling_7d as (
         date_key,
         city,
         avg_temperature_c,
+        total_precipitation_mm,
         avg(avg_temperature_c) over (
             partition by city
             order by date_key
@@ -84,4 +85,4 @@ select
     total_precip_30d,
     comfort_level
 from comfort_score
-order by date_key desc, city;
+order by date_key desc, city

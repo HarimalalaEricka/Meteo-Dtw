@@ -49,4 +49,4 @@ select
     end as is_alert
 from alerts
 where alert_type != 'None'
-order by date_key desc, alert_severity desc;
+order by date_key desc, alert_severity desc

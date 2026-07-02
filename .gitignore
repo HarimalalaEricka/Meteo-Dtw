@@ -1,0 +1,15 @@
+# Airflow logs
+weather_pipeline_airflow/logs/
+weather_pipeline_airflow/airflow_home/
+
+# dbt
+weather_dbt/target/
+weather_dbt/logs/
+weather_dbt/dbt_packages/
+
+# Python
+__pycache__/
+*.pyc
+
+# Env
+.env
