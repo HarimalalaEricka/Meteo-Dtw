@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: "Dimension table with city reference data."
+    columns:
+      - name: city_id
+        description: "Unique city identifier."
+        tests:
+          - not_null
+          - unique
+      - name: city_name
+        description: "City name."
+      - name: latitude
+        description: "Latitude coordinate."
+      - name: longitude
+        description: "Longitude coordinate."
+      - name: country
+        description: "Country name."
+      - name: region
+        description: "Region or province."
+
+  - name: dim_date
+    description: "Dimension table with date attributes for time-based analysis."
+    columns:
+      - name: date_key
+        description: "Date (surrogate key)."
+        tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Year (extracted)."
+      - name: month
+        description: "Month (1-12)."
+      - name: day
+        description: "Day of month."
+      - name: day_of_week
+        description: "Day of week (0=Sunday, 6=Saturday)."
+      - name: is_weekend
+        description: "Boolean flag for weekend."
+
+  - name: fact_weather
+    description: "Fact table with daily aggregated weather metrics by city."
+    columns:
+      - name: date_key
+        description: "Aggregation date."
+        tests:
+          - not_null
+      - name: city
+        description: "City name."
+        tests:
+          - not_null
+      - name: avg_temperature_c
+        description: "Average temperature for the day."
+        tests:
+          - not_null
+      - name: min_temperature_c
+        description: "Minimum temperature for the day."
+      - name: max_temperature_c
+        description: "Maximum temperature for the day."
+      - name: avg_humidity_pct
+        description: "Average humidity for the day."
+      - name: min_humidity_pct
+        description: "Minimum humidity for the day."
+      - name: max_humidity_pct
+        description: "Maximum humidity for the day."
+      - name: avg_wind_speed_kph
+        description: "Average wind speed for the day."
+      - name: max_wind_speed_kph
+        description: "Maximum wind speed for the day."
+      - name: total_precipitation_mm
+        description: "Total precipitation for the day."
+      - name: records_count
+        description: "Number of hourly observations aggregated."
+      - name: last_updated
+        description: "Timestamp of last data refresh."

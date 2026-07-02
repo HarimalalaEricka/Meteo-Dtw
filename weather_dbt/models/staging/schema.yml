@@ -1,0 +1,48 @@
+version: 2
+
+sources:
+  - name: weather
+    schema: public
+    tables:
+      - name: raw_weather
+        description: "Raw weather data from Airflow extraction (open-meteo API)."
+
+models:
+  - name: stg_weather
+    description: "Cleaned and validated weather observations from raw_weather."
+    columns:
+      - name: id
+        description: "Unique row identifier from raw_weather."
+      - name: city
+        description: "City name."
+      - name: observation_at
+        description: "Timestamp of the weather observation."
+      - name: temperature_c
+        description: "Temperature in Celsius."
+      - name: humidity_pct
+        description: "Humidity percentage."
+      - name: wind_speed_kph
+        description: "Wind speed in kilometers per hour."
+      - name: precipitation_mm
+        description: "Precipitation in millimeters."
+      - name: weather_code
+        description: "WMO weather code."
+      - name: valid_temperature_c
+        description: "Temperature after validation (NULL if invalid)."
+      - name: valid_humidity_pct
+        description: "Humidity after validation (NULL if invalid)."
+      - name: valid_wind_speed_kph
+        description: "Wind speed after validation (NULL if invalid)."
+      - name: valid_precipitation_mm
+        description: "Precipitation after validation (NULL if invalid)."
+    tests:
+      - not_null:
+          column_name: id
+      - not_null:
+          column_name: city
+      - not_null:
+          column_name: observation_at
+      - not_null:
+          column_name: temperature_c
+      - unique:
+          column_name: id
