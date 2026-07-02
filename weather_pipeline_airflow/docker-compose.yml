@@ -94,5 +94,20 @@ services:
       - ../weather_dbt:/opt/airflow/dbt_project
     command: scheduler
 
+  backend:
+    build: ../weather_backend
+    container_name: weather_backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST     : postgres
+      DB_PORT     : 5432
+      DB_NAME     : weather_db
+      DB_USER     : airflow
+      DB_PASSWORD : airflow
+    ports:
+      - "8000:8000"
+
 volumes:
   pgdata:
