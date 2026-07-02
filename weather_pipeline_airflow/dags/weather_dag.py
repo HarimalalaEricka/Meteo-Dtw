@@ -37,6 +37,7 @@ dag = DAG(
     default_args      = default_args,
     description       = '🌤️ Pipeline météo complet',
     schedule_interval = '0 */3 * * *',
+    # schedule_interval = '*/5 * * * *',
     catchup           = False,
     tags              = ['weather', 'etl', 'production'],
 )

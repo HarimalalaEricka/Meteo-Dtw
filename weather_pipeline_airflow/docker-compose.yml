@@ -109,14 +109,14 @@ services:
     ports:
       - "8000:8000"
 
-  frontend:
-    build: ../weather_frontend
-    container_name: weather_frontend
-    restart: unless-stopped
-    depends_on:
-      - backend
-    ports:
-      - "3000:80"
+  # frontend:
+  #   build: ../weather_frontend
+  #   container_name: weather_frontend
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "3000:80"
 
 volumes:
   pgdata:
